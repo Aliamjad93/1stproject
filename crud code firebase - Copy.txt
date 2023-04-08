@@ -1,0 +1,49 @@
+
+------------------ firebase CRUD Add ----------------------
+import { app, database } from '../firebase'
+import { collection, addDoc } from 'firebase/firestore'
+
+const databaseRef = collection(database, 'Students');
+
+const addData = async () => {
+    await addDoc(collection(database, 'Students'), {
+      name: name,
+      marks: marks
+    })
+    .then(() => {
+      alert('Data Saved');
+      setName('');
+      setAge('');
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+ }
+
+
+------------------ CRUD Read All ----------------------
+import { collection, getDocs } from 'firebase/firestore'
+
+const [studentsData, setStudentsData] = useState([]);
+
+useEffect()
+
+const getData = async () => {
+    await getDocs(collection(database, 'Students'))
+    .then((response) => {
+      setStudentsData(response.docs);
+    })
+  }
+
+<div>
+  {studentsData.map((data) => {
+    return (
+      <div className='flex bg-red-500 w-screen max-w-[400px] p-2 px-6 gap-4 items-center justify-center' >
+        <h2>{data.name}</h2>
+        <h3>{data.age}</h3>
+      </div>
+    )
+  })}
+</div>
+
+
